@@ -1,0 +1,58 @@
+PATH
+  remote: .
+  specs:
+    event_lawyer (0.0.1)
+      pwwka
+
+GEM
+  remote: https://gem.fury.io/me/
+  remote: https://www.rubygems.org/
+  specs:
+    activemodel (5.1.3)
+      activesupport (= 5.1.3)
+    activesupport (5.1.3)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    amq-protocol (2.2.0)
+    bunny (2.7.0)
+      amq-protocol (>= 2.2.0)
+    concurrent-ruby (1.0.5)
+    diff-lcs (1.3)
+    i18n (0.8.6)
+    minitest (5.10.3)
+    mono_logger (1.1.0)
+    pwwka (0.11.0)
+      activemodel
+      activesupport
+      bunny
+      mono_logger
+    rake (12.0.0)
+    rspec (3.6.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
+    rspec-core (3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-expectations (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-mocks (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-support (3.6.0)
+    thread_safe (0.3.6)
+    tzinfo (1.2.3)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  event_lawyer!
+  rake
+  rspec
+
+BUNDLED WITH
+   1.15.3
