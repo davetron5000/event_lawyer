@@ -9,3 +9,4 @@ db
 .DS_Store
 .jhw-cache
 **.orig
+Session.vim
