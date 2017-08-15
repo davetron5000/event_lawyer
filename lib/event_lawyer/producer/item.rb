@@ -9,7 +9,6 @@ module EventLawyer
       end
 
       def save
-        puts "Saved utem #{id}"
       end
     end
   end

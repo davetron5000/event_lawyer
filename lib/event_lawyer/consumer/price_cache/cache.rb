@@ -7,17 +7,19 @@ module EventLawyer
 end
 
 class EventLawyer::Consumer::PriceCache::Cache
-  def initialize
+  attr_reader :cache
+  def initialize(printer: Kernel)
     @cache = {}
+    @printer = printer
   end
 
   def update_from_message(payload)
     item = payload.fetch("item")
-    cache(item.fetch("id"),item.fetch("new_price"))
+    cache_price(item.fetch("id"),item.fetch("new_price"))
   end
 
-  def cache(item_id,retail_price)
-    ap({
+  def cache_price(item_id,retail_price)
+    @printer.ap({
       item_id: item_id,
       retail_price: retail_price,
     })

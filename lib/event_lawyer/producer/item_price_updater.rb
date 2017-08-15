@@ -1,10 +1,11 @@
-require_relative "../adapter/pwwka"
+require "pwwka"
+require "awesome_print"
 
 module EventLawyer
   module Producer
     class ItemPriceUpdater
-      def initialize(adapter: EventLawyer::Adapter::Pwwka.new)
-        @adapter = adapter
+      def initialize(printer: Kernel)
+        @printer = printer
       end
 
       def update(item,new_price)
@@ -21,10 +22,12 @@ module EventLawyer
           }
         }
 
-        @adapter.send_message!(
+        routing_key = "sf.item_price_change"
+        @printer.ap({
+          routing_key: routing_key,
           payload: payload,
-          type: "item_price_change",
-        )
+        })
+        ::Pwwka::Transmitter.send_message!(payload,routing_key)
       end
     end
   end

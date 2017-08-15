@@ -5,9 +5,14 @@ module EventLawyer
     end
   end
 end
+require_relative "repository"
+require_relative "item"
+require_relative "pack_slip"
 
 class EventLawyer::Consumer::PackSlipGeneration::Generator
-  def initialize
+  def initialize(pack_slip_repository: EventLawyer::Consumer::PackSlipGeneration::Repository.new, printer: Kernel)
+    @pack_slip_repository = pack_slip_repository
+    @printer = printer
   end
 
   def regenerate_from_message(payload)
@@ -19,10 +24,16 @@ class EventLawyer::Consumer::PackSlipGeneration::Generator
   end
 
   def regenerate_slip_with_item(item_id, updated_attributes)
-    # hand-wavy
-    ap({
+    @printer.ap({
       item_id: item_id,
       attributes: updated_attributes
     })
+    pack_slip = @pack_slip_repository.find_by_item(item_id)
+    unless pack_slip.nil?
+      item = pack_slip.items.detect { |item| item.id == item_id }
+      unless item.nil?
+        item.update(updated_attributes)
+      end
+    end
   end
 end
