@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require "pwwka"
+require "logger"
+require "awesome_print"
+require "event_lawyer/producer/item_price_updater"
+require "event_lawyer/producer/item"
+require "bigdecimal"
+
+logger = Logger.new(STDERR)
+logger.level = Logger::ERROR
+
+sleep_seconds = (ARGV.first || "1").to_i
+
+Pwwka.configure do |config|
+  config.rabbit_mq_host      = ENV['RABBITMQ_URL']
+  config.topic_exchange_name = "sf-dev"
+  config.requeue_on_error    = true
+  config.app_id              = "Test Producer"
+  config.logger              = logger
+end
+
+include EventLawyer::Producer
+
+updater = ItemPriceUpdater.new
+
+def random_price
+  "#{rand(100)}.#{rand(100)}"
+end
+loop do
+  item = Item.new(rand(10000),random_price)
+
+  updater.update(item,random_price)
+
+  sleep sleep_seconds
+end

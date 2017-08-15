@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     event_lawyer (0.0.1)
+      activesupport
+      awesome_print
       pwwka
 
 GEM
@@ -16,6 +18,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     amq-protocol (2.2.0)
+    awesome_print (1.8.0)
     bunny (2.7.0)
       amq-protocol (>= 2.2.0)
     concurrent-ruby (1.0.5)

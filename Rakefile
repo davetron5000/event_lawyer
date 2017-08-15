@@ -1,5 +1,6 @@
 require 'rubygems/package_task'
 require 'rspec/core/rake_task'
+require "pwwka/tasks"
 
 $: << File.join(File.dirname(__FILE__),'lib')
 

@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require "pwwka"
+require "logger"
+require "awesome_print"
+require "price_cache_handler"
+require "pack_slip_handler"
+require "active_support/all"
+
+logger = Logger.new(STDERR)
+logger.level = Logger::DEBUG
+
+handler_klass = Object.const_get(ARGV[0])
+
+Pwwka.configure do |config|
+  config.rabbit_mq_host      = ENV['RABBITMQ_URL']
+  config.topic_exchange_name = "sf-dev"
+  config.requeue_on_error    = false
+  config.app_id              = "Consumer #{handler_klass.name}"
+  config.logger              = logger
+  config.keep_alive_on_handler_klass_exceptions = true
+  config.payload_logging     = :error
+end
+
+
+Pwwka::Receiver.subscribe(handler_klass, handler_klass.to_s, routing_key: "#.#")
