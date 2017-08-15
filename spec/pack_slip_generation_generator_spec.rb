@@ -16,7 +16,7 @@ describe EventLawyer::Consumer::PackSlipGeneration::Generator do
       }
     }
 
-    subject { described_class.new(pack_slip_repository: pack_slip_repository, printer: NullAp.new) }
+    subject { described_class.new(printer: NullAp.new) }
 
     context "when the item exists in a pack slip" do
       let(:item_id) { pack_slip_repository.pack_slips.first.items.first.id }
