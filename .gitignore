@@ -10,3 +10,4 @@ db
 .jhw-cache
 **.orig
 Session.vim
+coverage

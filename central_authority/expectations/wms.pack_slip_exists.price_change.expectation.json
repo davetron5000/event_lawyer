@@ -1,0 +1,1 @@
+{"app_name":"wms","use_case":"pack_slip_exists","guarantee_id":"price_change","schema":{"type":"object","required":["item"],"properties":{"item":{"type":"object","required":["id","new_price"],"properties":{"id":{"type":"integer"},"new_price":{"type":"string"}}}}},"example_payload":{"item":{"id":1234,"new_price":"34.12","old_price":"12.34"}}}

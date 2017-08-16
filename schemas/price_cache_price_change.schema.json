@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["item"],
+  "properties": {
+    "item": {
+      "type": "object",
+      "required": ["id", "new_price" ],
+      "properties": {
+        "id": {"type": "integer"},
+        "new_price": {"type": "string"}
+      }
+    }
+  }
+}

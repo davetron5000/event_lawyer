@@ -18,7 +18,7 @@ module EventLawyer
           item: {
             id: item.id,
             new_price: item.price,
-            old_price: old_price
+            old_price: old_price,
           }
         }
 

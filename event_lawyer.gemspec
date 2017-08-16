@@ -20,5 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency("awesome_print")
   s.add_dependency("json-schema")
   s.add_development_dependency("rake")
+  s.add_development_dependency("simplecov")
   s.add_development_dependency("rspec")
 end

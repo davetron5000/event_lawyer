@@ -1,8 +1,8 @@
 require "spec_helper"
-require "null_ap"
 require "event_lawyer/consumer/price_cache/cache"
 
 describe EventLawyer::Consumer::PriceCache::Cache do
+  include ExpectationsHelper
   describe "#update_from_message" do
     let(:item_id) { 12 }
     let(:price) { "34.12" }

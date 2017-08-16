@@ -13,6 +13,10 @@ class EventLawyer::Consumer::PriceCache::Cache
     @printer = printer
   end
 
+  def [](item_id)
+    @cache[item_id]
+  end
+
   def update_from_message(payload)
     item = payload.fetch("item")
     cache_price(item.fetch("id"),item.fetch("new_price"))

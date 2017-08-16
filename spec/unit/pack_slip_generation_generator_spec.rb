@@ -1,7 +1,6 @@
 require "spec_helper"
 
 require "event_lawyer/consumer/pack_slip_generation/generator"
-require "null_ap"
 
 describe EventLawyer::Consumer::PackSlipGeneration::Generator do
   describe "#update_from_message" do

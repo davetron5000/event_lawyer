@@ -1,0 +1,1 @@
+{"id":"price_change","schema":{"type":"object","required":["item"],"properties":{"item":{"type":"object","required":["id","new_price","old_price"],"properties":{"id":{"type":"integer"},"new_price":{"type":"string"},"old_price":{"type":"string"}}}}},"metadata":{"routing_key":"sf.item_price_change"},"example_payload":{"item":{"id":1,"new_price":"34.45","old_price":"12.34"}}}
