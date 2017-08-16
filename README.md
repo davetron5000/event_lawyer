@@ -7,6 +7,36 @@ publishes an _expectation_ of what it needs.
 The guarantees and expectations can be published in a centralized store such that both sides can check that they aren't breaking
 anything.
 
+## WTF is in this repo
+
+This has example code of one producer, `ItemPriceUpdater` that sends messages on a Rabbit exchange about the change in price of
+an item.  There are two consumers, `PriceCacheHandler`, which updates a cache of item prices for financial purposes, and
+`PackSlipHandler`, which updates packing slips with the updated item prices.
+
+* `schemas/` - schemas for the producers and consumers
+  * `item_price_change.schema.json` - The schema of what the producer is sending
+  * `pack_slip_new_price.schema.json` - The schema of what the `PackSlipHandler` is expecting
+  * `price_cache_price_change.schema.json` - The schema of what the `PriceCacheHandler` is expecting
+* `central_authority/` - mimics a central server where the guarantees and expectations are stored
+  * `expectations` - mimics the expectations consumers have on producers
+    * `financial_data_warehouse.cache_price.price_change.expectation.json` - An app called "financial data warehouse" has an
+    expectation on the "price change" guarantee related to a use case called "cache price"
+    * `wms.pack_slip_does_not_exist.price_change.expectation.json` - An app called "wms" has an expectation
+    on the "price change" guarantee related to a use case called "pack slip does not exist"
+    * `wms.pack_slip_exists.price_change.expectation.json` - An app called "wms" has an expectation on the
+    "price change" guarantee related to a use case called "pack slip exists"
+  * `guarantees`
+    * `price_change.guarantee.json` - a guaratee called "price change" that a message will be sent and others can rely on
+
+## How it works
+
+When you run the test of the producer, it requires a schema for its payload, and writes out the guarantee.  When you run the test
+of a consumer, it grabs that guarantee and feeds an example payload into itself to start the test.  It evaluates the payload
+against *it's* schema and then writes out an expectation capturing all this. The producer, when the tests are re-run, will grab
+these expectations and evaluate the sample payloads against *it's* schema.
+
+# Terms
+
 ## Guarantee
 
 A guarantee consists of three parts:
