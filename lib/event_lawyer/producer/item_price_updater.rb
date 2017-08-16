@@ -23,10 +23,12 @@ module EventLawyer
         }
 
         routing_key = "sf.item_price_change"
-        @printer.ap({
-          routing_key: routing_key,
-          payload: payload,
-        })
+        if ENV["DEBUG"]
+          @printer.ap({
+            routing_key: routing_key,
+            payload: payload,
+          })
+        end
         ::Pwwka::Transmitter.send_message!(payload,routing_key)
       end
     end

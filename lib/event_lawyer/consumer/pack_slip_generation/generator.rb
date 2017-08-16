@@ -24,10 +24,12 @@ class EventLawyer::Consumer::PackSlipGeneration::Generator
   end
 
   def regenerate_slip_with_item(item_id, updated_attributes)
-    @printer.ap({
-      item_id: item_id,
-      attributes: updated_attributes
-    })
+    if ENV["DEBUG"]
+      @printer.ap({
+        item_id: item_id,
+        attributes: updated_attributes
+      })
+    end
     pack_slip = @pack_slip_repository.find_by_item(item_id)
     unless pack_slip.nil?
       item = pack_slip.items.detect { |item| item.id == item_id }

@@ -23,10 +23,12 @@ class EventLawyer::Consumer::PriceCache::Cache
   end
 
   def cache_price(item_id,retail_price)
-    @printer.ap({
-      item_id: item_id,
-      retail_price: retail_price,
-    })
+    if ENV["DEBUG"]
+      @printer.ap({
+        item_id: item_id,
+        retail_price: retail_price,
+      })
+    end
     @cache[item_id] = retail_price
   end
 end

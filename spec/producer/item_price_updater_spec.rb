@@ -53,10 +53,13 @@ RSpec::Matchers.define :have_sent_message do |options|
 
     schema = schema_named(options.fetch(:matching_schema))
     JSON::Validator.validate!(schema, received_payload.to_json)
+    puts "✅ Message we sent matches our schema"
 
-    File.open(guarantee(options.fetch(:identified_by)),"w") do |file|
+    guarantee_id = options.fetch(:identified_by)
+
+    File.open(guarantee(guarantee_id),"w") do |file|
       file.puts({
-        id: options.fetch(:identified_by),
+        id: guarantee_id,
         schema: JSON.parse(schema),
         metadata: {
           routing_key: received_routing_key,
@@ -64,6 +67,17 @@ RSpec::Matchers.define :have_sent_message do |options|
         example_payload: received_payload,
       }.to_json)
     end
-    true
+
+    passed = true
+    expectations(guarantee_id) do |expectation|
+      begin
+        JSON::Validator.validate!(expectation["schema"],received_payload)
+        puts "✅ #{expectation["app_name"]}/#{expectation["use_case"]} is consistent with us"
+      rescue => ex
+        puts "⛔ #{expectation["app_name"]}/#{expectation["use_case"]} is inconsistent with us: #{ex.message}"
+        passed = false
+      end
+    end
+    passed
   end
 end

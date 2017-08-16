@@ -22,6 +22,7 @@ module ExpectationsHelper
     delivery_info = double("delivery_info", routing_key: routing_key)
 
     JSON::Validator.validate!(schema, payload.to_json)
+    puts "✅ Message we received matches our schema"
 
     described_class.handle!(
       delivery_info,
