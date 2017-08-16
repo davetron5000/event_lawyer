@@ -11,3 +11,11 @@ Gem::PackageTask.new(gemspec) {}
 RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
+
+task "producer:verify" do
+  sh "bin/rspec spec/producer"
+end
+
+task "consumers:verify" do
+  sh "bin/rspec spec/consumer"
+end
